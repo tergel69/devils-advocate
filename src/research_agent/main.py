@@ -137,29 +137,21 @@ Examples:
 
     load_dotenv()
 
-    has_google = bool(os.environ.get("GOOGLE_API_KEY"))
-    has_openai = bool(os.environ.get("OPENAI_API_KEY"))
-
-    if not has_google and not has_openai:
-        console.print(
-            "[red]Error: No LLM API key configured.[/red]\n\n"
-            "[bold]Option 1 (Free):[/bold] Google Gemini\n"
-            "  Get a free key at: https://aistudio.google.com/apikey\n"
-            "  export GOOGLE_API_KEY=your-key-here\n\n"
-            "[bold]Option 2 (Paid):[/bold] OpenAI\n"
-            "  pip install research-agent[openai]\n"
-            "  export OPENAI_API_KEY=sk-your-key-here\n\n"
-            "See .env.example for all configuration options."
-        )
-        sys.exit(1)
-
-    provider = "Gemini (Free)" if has_google and not os.environ.get("LLM_PROVIDER") else "OpenAI"
-    if os.environ.get("LLM_PROVIDER", "").lower() == "gemini":
-        provider = "Gemini (Free)"
+    llm_provider = os.environ.get("LLM_PROVIDER", "").lower()
+    if llm_provider == "openai":
+        provider_label = "OpenAI"
+    elif llm_provider == "gemini":
+        provider_label = "Gemini"
+    elif os.environ.get("OPENAI_API_KEY"):
+        provider_label = "OpenAI"
+    elif os.environ.get("GOOGLE_API_KEY"):
+        provider_label = "Gemini"
+    else:
+        provider_label = "Ollama (Local)"
 
     console.print(
         Panel(
-            f"[bold]Autonomous Research Agent[/bold]\nPowered by LangGraph + {provider}",
+            f"[bold]Autonomous Research Agent[/bold]\nPowered by LangGraph + {provider_label}",
             border_style="bright_blue",
         )
     )

@@ -2,6 +2,8 @@
 
 An AI-powered research agent that takes a research question, autonomously searches the web, reads and analyzes sources, synthesizes findings, and produces a comprehensive structured report with citations.
 
+**Completely free to run** — uses [Ollama](https://ollama.com) for local AI inference and DuckDuckGo for web search. No API keys or paid services required.
+
 ## Architecture
 
 Built with **LangGraph** for multi-step agentic reasoning:
@@ -28,7 +30,8 @@ The agent can **iterate**: if the self-review scores the report below threshold,
 ## Tech Stack
 
 - **[LangGraph](https://github.com/langchain-ai/langgraph)** - Agentic workflow orchestration with stateful graph execution
-- **[LangChain](https://github.com/langchain-ai/langchain)** - LLM integration (Google Gemini free tier, OpenAI optional)
+- **[LangChain](https://github.com/langchain-ai/langchain)** - LLM integration (Ollama local, Gemini, OpenAI)
+- **[Ollama](https://ollama.com)** - Free local AI inference (default, no API key needed)
 - **[DuckDuckGo Search](https://github.com/deedy5/duckduckgo_search)** - Free web search (no API key required)
 - **[Trafilatura](https://github.com/adbar/trafilatura)** - High-quality web content extraction
 - **[Rich](https://github.com/Textualize/rich)** - Beautiful terminal output
@@ -39,7 +42,7 @@ The agent can **iterate**: if the self-review scores the report below threshold,
 ### Prerequisites
 
 - Python 3.11+
-- A Google Gemini API key (free) — get one at [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
+- [Ollama](https://ollama.com/download) installed (free, runs locally)
 
 ### Installation
 
@@ -55,35 +58,50 @@ source .venv/bin/activate
 # Install the package
 pip install -e .
 
-# Configure your API key (free)
-cp .env.example .env
-# Edit .env and add your GOOGLE_API_KEY (free from https://aistudio.google.com/apikey)
+# Install Ollama (if not already installed)
+curl -fsSL https://ollama.com/install.sh | sh
 
-# Or for OpenAI (paid):
-# pip install -e ".[openai]"
+# Pull the default model (small, fast on CPU)
+ollama pull qwen3:1.7b
+```
+
+That's it! No API keys needed.
+
+### Optional: Cloud LLM Providers
+
+For higher quality results, you can optionally use cloud providers:
+
+```bash
+# Google Gemini (free tier)
+pip install -e ".[gemini]"
+export GOOGLE_API_KEY=your-key  # Free from https://aistudio.google.com/apikey
+
+# OpenAI (paid)
+pip install -e ".[openai]"
+export OPENAI_API_KEY=sk-your-key
 ```
 
 ### Configuration
 
-Edit `.env` to configure:
+Edit `.env` to configure (or use environment variables):
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `GOOGLE_API_KEY` | Yes* | - | Google Gemini API key (free) |
-| `GEMINI_MODEL` | No | `gemini-2.0-flash` | Gemini model to use |
-| `OPENAI_API_KEY` | Alt* | - | OpenAI API key (paid alternative) |
-| `OPENAI_MODEL` | No | `gpt-4o-mini` | OpenAI model to use |
-| `LLM_PROVIDER` | No | auto | Force `gemini` or `openai` |
+| `OLLAMA_MODEL` | No | `qwen3:1.7b` | Ollama model to use |
+| `OLLAMA_BASE_URL` | No | `http://localhost:11434` | Ollama server URL |
+| `GOOGLE_API_KEY` | No | - | Google Gemini API key (free tier) |
+| `OPENAI_API_KEY` | No | - | OpenAI API key (paid) |
+| `LLM_PROVIDER` | No | auto | Force `ollama`, `gemini`, or `openai` |
 | `TAVILY_API_KEY` | No | - | Tavily API key for enhanced search |
 | `MAX_SEARCH_RESULTS` | No | `5` | Max results per search query |
 | `MAX_PAGES_TO_READ` | No | `3` | Max pages to read per iteration |
 
-*Set either `GOOGLE_API_KEY` (free) or `OPENAI_API_KEY` (paid). At least one is required.
+Provider auto-detection priority: OpenAI > Gemini > Ollama (fallback).
 
 ## Usage
 
 ```bash
-# Basic usage
+# Basic usage (uses Ollama by default, no API key needed)
 research-agent "Latest trends in quantum computing startups"
 
 # With more iterations for deeper research
@@ -162,7 +180,7 @@ research-agent/
     ├── __init__.py
     ├── main.py                 # CLI entry point
     ├── agent.py                # LangGraph workflow definition
-    ├── config.py               # LLM configuration
+    ├── config.py               # LLM configuration (Ollama/Gemini/OpenAI)
     ├── state.py                # Agent state types
     ├── prompts.py              # LLM prompts for each node
     ├── tools/
