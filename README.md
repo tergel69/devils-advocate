@@ -28,7 +28,7 @@ The agent can **iterate**: if the self-review scores the report below threshold,
 ## Tech Stack
 
 - **[LangGraph](https://github.com/langchain-ai/langgraph)** - Agentic workflow orchestration with stateful graph execution
-- **[LangChain](https://github.com/langchain-ai/langchain)** - LLM integration (OpenAI)
+- **[LangChain](https://github.com/langchain-ai/langchain)** - LLM integration (Google Gemini free tier, OpenAI optional)
 - **[DuckDuckGo Search](https://github.com/deedy5/duckduckgo_search)** - Free web search (no API key required)
 - **[Trafilatura](https://github.com/adbar/trafilatura)** - High-quality web content extraction
 - **[Rich](https://github.com/Textualize/rich)** - Beautiful terminal output
@@ -39,7 +39,7 @@ The agent can **iterate**: if the self-review scores the report below threshold,
 ### Prerequisites
 
 - Python 3.11+
-- An OpenAI API key
+- A Google Gemini API key (free) — get one at [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 
 ### Installation
 
@@ -55,9 +55,12 @@ source .venv/bin/activate
 # Install the package
 pip install -e .
 
-# Configure your API key
+# Configure your API key (free)
 cp .env.example .env
-# Edit .env and add your OPENAI_API_KEY
+# Edit .env and add your GOOGLE_API_KEY (free from https://aistudio.google.com/apikey)
+
+# Or for OpenAI (paid):
+# pip install -e ".[openai]"
 ```
 
 ### Configuration
@@ -66,11 +69,16 @@ Edit `.env` to configure:
 
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
-| `OPENAI_API_KEY` | Yes | - | Your OpenAI API key |
+| `GOOGLE_API_KEY` | Yes* | - | Google Gemini API key (free) |
+| `GEMINI_MODEL` | No | `gemini-2.0-flash` | Gemini model to use |
+| `OPENAI_API_KEY` | Alt* | - | OpenAI API key (paid alternative) |
 | `OPENAI_MODEL` | No | `gpt-4o-mini` | OpenAI model to use |
+| `LLM_PROVIDER` | No | auto | Force `gemini` or `openai` |
 | `TAVILY_API_KEY` | No | - | Tavily API key for enhanced search |
 | `MAX_SEARCH_RESULTS` | No | `5` | Max results per search query |
 | `MAX_PAGES_TO_READ` | No | `3` | Max pages to read per iteration |
+
+*Set either `GOOGLE_API_KEY` (free) or `OPENAI_API_KEY` (paid). At least one is required.
 
 ## Usage
 

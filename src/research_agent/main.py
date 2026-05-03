@@ -137,18 +137,29 @@ Examples:
 
     load_dotenv()
 
-    if not os.environ.get("OPENAI_API_KEY"):
+    has_google = bool(os.environ.get("GOOGLE_API_KEY"))
+    has_openai = bool(os.environ.get("OPENAI_API_KEY"))
+
+    if not has_google and not has_openai:
         console.print(
-            "[red]Error: OPENAI_API_KEY environment variable is required.[/red]\n"
-            "Set it in your .env file or export it:\n"
-            "  export OPENAI_API_KEY=sk-your-key-here\n"
-            "\nSee .env.example for configuration options."
+            "[red]Error: No LLM API key configured.[/red]\n\n"
+            "[bold]Option 1 (Free):[/bold] Google Gemini\n"
+            "  Get a free key at: https://aistudio.google.com/apikey\n"
+            "  export GOOGLE_API_KEY=your-key-here\n\n"
+            "[bold]Option 2 (Paid):[/bold] OpenAI\n"
+            "  pip install research-agent[openai]\n"
+            "  export OPENAI_API_KEY=sk-your-key-here\n\n"
+            "See .env.example for all configuration options."
         )
         sys.exit(1)
 
+    provider = "Gemini (Free)" if has_google and not os.environ.get("LLM_PROVIDER") else "OpenAI"
+    if os.environ.get("LLM_PROVIDER", "").lower() == "gemini":
+        provider = "Gemini (Free)"
+
     console.print(
         Panel(
-            "[bold]Autonomous Research Agent[/bold]\nPowered by LangGraph + OpenAI",
+            f"[bold]Autonomous Research Agent[/bold]\nPowered by LangGraph + {provider}",
             border_style="bright_blue",
         )
     )
