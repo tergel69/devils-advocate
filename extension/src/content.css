@@ -1,0 +1,28 @@
+#devils-advocate-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(197, 48, 48, 0.4);
+  z-index: 2147483647;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+#devils-advocate-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(197, 48, 48, 0.5);
+}
+
+#devils-advocate-fab svg {
+  width: 28px;
+  height: 28px;
+}

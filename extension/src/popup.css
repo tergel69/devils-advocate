@@ -1,0 +1,260 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 380px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+.container {
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.logo h1 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 12px;
+  color: #888;
+  font-style: italic;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #888;
+  flex-shrink: 0;
+}
+
+.status-dot.connected {
+  background: #48bb78;
+  box-shadow: 0 0 8px rgba(72, 187, 120, 0.5);
+}
+
+.status-dot.disconnected {
+  background: #f56565;
+  box-shadow: 0 0 8px rgba(245, 101, 101, 0.5);
+}
+
+.article-info {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 16px;
+  border-left: 3px solid #e53e3e;
+}
+
+.article-info h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.article-info p {
+  font-size: 12px;
+  color: #888;
+}
+
+.analyze-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.analyze-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(229, 62, 62, 0.4);
+}
+
+.analyze-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  padding: 30px 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(229, 62, 62, 0.2);
+  border-top-color: #e53e3e;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading p {
+  color: #ccc;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.loading-sub {
+  color: #888 !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  margin-top: 4px;
+}
+
+.error {
+  background: rgba(245, 101, 101, 0.1);
+  border: 1px solid rgba(245, 101, 101, 0.3);
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 12px;
+}
+
+.error p {
+  color: #f56565;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.retry-btn {
+  padding: 8px 16px;
+  border: 1px solid rgba(245, 101, 101, 0.5);
+  border-radius: 6px;
+  background: transparent;
+  color: #f56565;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.retry-btn:hover {
+  background: rgba(245, 101, 101, 0.1);
+}
+
+.settings-link {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.settings-btn {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.settings-btn:hover {
+  color: #aaa;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.settings-panel {
+  margin-top: 12px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.settings-panel label {
+  display: block;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+}
+
+.input-group input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
+  font-size: 13px;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #e53e3e;
+}
+
+.save-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #e53e3e;
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.save-btn:hover {
+  background: #c53030;
+}
+
+.hidden {
+  display: none !important;
+}

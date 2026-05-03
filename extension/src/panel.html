@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devil's Advocate — Counter-Arguments</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <div class="panel-container">
+    <header class="panel-header">
+      <div class="header-top">
+        <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#e53e3e"/>
+            <path d="M15.5 11c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="white" transform="rotate(180 12 14)"/>
+          </svg>
+          <h1>Devil's Advocate</h1>
+        </div>
+        <button id="refreshBtn" class="icon-btn" title="Re-analyze">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 4v6h6M23 20v-6h-6"/>
+            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Empty state -->
+    <div id="emptyState" class="empty-state">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5">
+        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+      </svg>
+      <p>Click the extension icon or FAB button on any article to generate counter-arguments</p>
+    </div>
+
+    <!-- Loading state -->
+    <div id="loadingState" class="loading-state hidden">
+      <div class="spinner-large"></div>
+      <h2>Building the counter-case...</h2>
+      <p id="loadingStep">Analyzing the article's main arguments</p>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="results hidden">
+      <!-- Original article summary -->
+      <section class="section original-section">
+        <div class="section-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+          </svg>
+          <h2>Original Argument</h2>
+        </div>
+        <div id="originalSummary" class="original-summary"></div>
+        <div id="originalClaims" class="claims-list"></div>
+      </section>
+
+      <!-- Counter arguments -->
+      <section class="section counter-section">
+        <div class="section-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+            <line x1="4" y1="22" x2="4" y2="15"/>
+          </svg>
+          <h2>Counter-Arguments</h2>
+        </div>
+        <div id="counterArguments" class="counter-arguments"></div>
+      </section>
+
+      <!-- Sources -->
+      <section class="section sources-section">
+        <div class="section-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+          <h2>Sources</h2>
+        </div>
+        <div id="sourcesList" class="sources-list"></div>
+      </section>
+
+      <!-- Bias meter -->
+      <section class="section bias-section">
+        <div class="section-header">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+          <h2>Bias & Balance Assessment</h2>
+        </div>
+        <div id="biasAssessment" class="bias-assessment"></div>
+      </section>
+    </div>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>
