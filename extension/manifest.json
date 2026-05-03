@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Devil's Advocate",
+  "version": "1.0.0",
+  "description": "Analyzes opinion pieces and news articles to generate well-sourced counter-arguments. Break your echo chamber.",
+  "permissions": ["activeTab", "storage", "sidePanel"],
+  "host_permissions": ["<all_urls>"],
+  "action": {
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content.js"],
+      "css": ["src/content.css"]
+    }
+  ],
+  "side_panel": {
+    "default_path": "src/panel.html"
+  }
+}

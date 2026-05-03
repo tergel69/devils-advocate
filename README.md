@@ -168,6 +168,54 @@ Writing research report...
 Report saved to: reports/20250503_120000_latest_breakthroughs_in_nuclear_fusion.md
 ```
 
+## Devil's Advocate Browser Extension
+
+A Chrome extension that analyzes opinion pieces and news articles, then generates well-sourced counter-arguments to help break echo chambers.
+
+### How It Works
+
+```
+┌──────────────┐     ┌────────────────┐     ┌────────────────┐     ┌──────────────┐
+│ Content      │ ──▶ │ Claim          │ ──▶ │ Counter-Search │ ──▶ │ Counter-     │
+│ Extraction   │     │ Extraction     │     │ & RAG Pipeline │     │ Argument Gen │
+└──────────────┘     └────────────────┘     └────────────────┘     └──────────────┘
+  (browser)            (LLM)                  (DuckDuckGo +          (LLM)
+                                               trafilatura)
+```
+
+1. **Content Extraction** — The content script identifies and extracts article text from any web page
+2. **Claim Extraction** — LLM analyzes the article to identify the main thesis and specific arguable claims
+3. **Counter-Evidence Search** — Generates targeted search queries to find opposing viewpoints and counter-evidence via DuckDuckGo, then reads and analyzes sources with trafilatura
+4. **Counter-Argument Synthesis** — LLM plays Devil's Advocate to construct evidence-backed counter-arguments
+5. **Bias Assessment** — Evaluates the article's objectivity on a scale from biased to well-balanced
+
+### Extension Setup
+
+```bash
+# 1. Start the backend API server
+pip install -e .
+devils-advocate                    # or: python -m research_agent.serve
+
+# 2. Load the extension in Chrome
+#    - Open chrome://extensions/
+#    - Enable "Developer mode"
+#    - Click "Load unpacked" → select the extension/ directory
+```
+
+The extension features:
+- **Floating action button (FAB)** on article pages
+- **Popup** with article detection and one-click analysis
+- **Side panel** displaying counter-arguments, sources, and bias assessment
+- **Configurable backend URL** in settings
+
+### API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/health` | GET | Health check with provider info |
+| `/api/analyze` | POST | Analyze article and generate counter-arguments |
+| `/docs` | GET | Interactive API documentation (Swagger) |
+
 ## Project Structure
 
 ```
@@ -176,9 +224,21 @@ research-agent/
 ├── .env.example                # Environment variable template
 ├── README.md
 ├── reports/                    # Generated reports (gitignored)
+├── extension/                  # Devil's Advocate Chrome extension
+│   ├── manifest.json           # Chrome MV3 manifest
+│   ├── icons/                  # Extension icons
+│   └── src/
+│       ├── content.js          # Article text extraction
+│       ├── content.css         # FAB button styles
+│       ├── background.js       # Service worker (API comms)
+│       ├── popup.html/js/css   # Extension popup UI
+│       └── panel.html/js/css   # Side panel (counter-arguments display)
 └── src/research_agent/
     ├── __init__.py
-    ├── main.py                 # CLI entry point
+    ├── main.py                 # CLI entry point (research agent)
+    ├── api.py                  # FastAPI backend for extension
+    ├── serve.py                # API server CLI entry point
+    ├── devils_advocate.py      # Counter-argument generation engine
     ├── agent.py                # LangGraph workflow definition
     ├── config.py               # LLM configuration (Ollama/Gemini/OpenAI)
     ├── state.py                # Agent state types

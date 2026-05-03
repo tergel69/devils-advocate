@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devil's Advocate</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="#e53e3e"/>
+          <path d="M15.5 11c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="white" transform="rotate(180 12 14)"/>
+        </svg>
+        <h1>Devil's Advocate</h1>
+      </div>
+      <p class="tagline">Challenge your thinking. Break the echo chamber.</p>
+    </header>
+
+    <div id="status" class="status">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">Checking connection...</span>
+    </div>
+
+    <div id="articleInfo" class="article-info hidden">
+      <h3 id="articleTitle"></h3>
+      <p id="articleMeta"></p>
+    </div>
+
+    <button id="analyzeBtn" class="analyze-btn" disabled>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+      </svg>
+      Analyze This Article
+    </button>
+
+    <div id="loading" class="loading hidden">
+      <div class="spinner"></div>
+      <p>Generating counter-arguments...</p>
+      <p class="loading-sub">Searching for evidence and building the case</p>
+    </div>
+
+    <div id="error" class="error hidden">
+      <p id="errorText"></p>
+      <button id="retryBtn" class="retry-btn">Retry</button>
+    </div>
+
+    <div class="settings-link">
+      <button id="settingsBtn" class="settings-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        Settings
+      </button>
+    </div>
+
+    <div id="settingsPanel" class="settings-panel hidden">
+      <label for="apiUrlInput">Backend API URL</label>
+      <div class="input-group">
+        <input type="text" id="apiUrlInput" placeholder="http://localhost:8000">
+        <button id="saveApiUrl" class="save-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
